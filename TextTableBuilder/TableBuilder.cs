@@ -11,9 +11,14 @@ public class TableBuilder
     public ObjectHandlerCollection ObjectHandlers { get; } = new();
 
     public string Build(Table table)
-        => Build(table, CultureInfo.CurrentUICulture);
+        => Build(table, TableStyle.Default);
 
+    public string Build(Table table, TableStyle tableStyle)
+        => Build(table, tableStyle, CultureInfo.CurrentUICulture);
     public string Build(Table table, IFormatProvider formatProvider)
+        => Build(table, TableStyle.Default, formatProvider);
+
+    public string Build(Table table, TableStyle tableStyle, IFormatProvider formatProvider)
     {
         if (table is null)
         {
@@ -39,8 +44,8 @@ public class TableBuilder
                 _ => throw new InvalidOperationException("Unknown rowtype")
             }).Select(
                     (v, i) => v is null
-                        // Null is just an empty string
-                        ? string.Empty
+                        // Handle the special null-case with our NullHandler (if any, empty string otherwise)
+                        ? (TypeHandlers.NullValueHandler?.Handle(formatProvider) ?? string.Empty)
                         // Use typehandler from colum when specified, else use typehandler from type from value
                         : (cols[i].TypeHandler ?? TypeHandlers.GetHandler(v.GetType())).Handle(v, formatProvider)).ToArray();
 
@@ -60,19 +65,28 @@ public class TableBuilder
 
         // Now build actual table
         var sb = new StringBuilder();
-        sb.AppendLine(MakeRow(table.Columns.Select((col, i) => AlignString(col.Name, col.Align, colwidths[i]))));
-        sb.AppendLine(MakeRow(colwidths.Select(w => new string('-', w))));
+
+        // Headers
+        sb.AppendLine(MakeRow(tableStyle, table.Columns.Select((col, i) => AlignString(col.Name, col.Align, colwidths[i], tableStyle.Padding))));
+
+        // Header separator
+        if (tableStyle.HeaderSeparator is not null)
+        {
+            sb.AppendLine(MakeRow(tableStyle, colwidths.Select(w => new string(tableStyle.HeaderSeparator.Value, w))));
+        }
+
+        // Rows
         foreach (var row in rows)
         {
-            sb.AppendLine(MakeRow(row.Select((value, i) => AlignString(value, cols[i].RowAlign, colwidths[i]))));
+            sb.AppendLine(MakeRow(tableStyle, row.Select((value, i) => AlignString(value, cols[i].RowAlign, colwidths[i], tableStyle.Padding))));
         }
         return sb.ToString();
     }
 
-    private static string MakeRow(IEnumerable<string> values)
-        => string.Join(" | ", values);
+    private static string MakeRow(TableStyle tableStyle, IEnumerable<string> values)
+        => string.Join(tableStyle.ColumnSeparator, values);
 
-    private static string AlignString(string value, Align align, int width, char paddingChar = ' ')
+    private static string AlignString(string value, Align align, int width, char paddingChar)
         => align switch
         {
             Align.Right => value.PadLeft(width, paddingChar),

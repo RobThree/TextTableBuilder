@@ -38,9 +38,9 @@ public class Table
     }
 
     public Table AddColumns(IEnumerable<string> columns)
-        => AddColumns(columns.Select(c => new Column(c)));
+        => AddColumns(columns.Select(c => Column.FromName(c)));
 
-    public Table AddRow(params object[] values)
+    public Table AddRow(params object?[] values)
         => AddRowImpl(new ValueRow(values));
 
     public Table AddRow(Row row)
@@ -66,7 +66,8 @@ public class Table
         return this;
     }
 
-    private Table AddRowImpl(Row row) {
+    private Table AddRowImpl(Row row)
+    {
         if (row is null)
         {
             throw new ArgumentNullException(nameof(row));

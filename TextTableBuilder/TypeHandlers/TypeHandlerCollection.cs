@@ -2,6 +2,8 @@
 
 public class TypeHandlerCollection : HandlerCollection<ITypeHandler>
 {
+    public INullValueHandler NullValueHandler { get; set; } = NullHandler.Default;
+
     public TypeHandlerCollection()
     {
         AddHandler<bool>(new BoolHandler());
@@ -19,6 +21,7 @@ public class TypeHandlerCollection : HandlerCollection<ITypeHandler>
         AddHandler<ushort>(new UShortHandler());
         AddHandler<DateTime>(new DateTimeHandler());
         AddHandler<TimeSpan>(new TimeSpanHandler());
+        AddHandler<Guid>(new GuidHandler());
         AddHandler<object>(new DefaultTypeHandler());
     }
 }
