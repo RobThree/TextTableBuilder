@@ -27,7 +27,7 @@ public class Program
         var tb = new TableBuilder();
         tb.TypeHandlers.NullValueHandler = new NullHandler("<NULL>");
         tb.ObjectHandlers.AddHandler<Customer>(new CustomerHandler());
-        Console.WriteLine(tb.Build(t));
+        Console.WriteLine(tb.Build(t, TableStyle.MSDOS));
     }
 }
 
