@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextTableBuilder", "TextTableBuilder\TextTableBuilder.csproj", "{F5214A18-9575-4CCE-9163-F2CD499FF9CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "DemoApp\DemoApp.csproj", "{4BFF6117-5A16-41BF-A8A5-F5011F21B07D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5214A18-9575-4CCE-9163-F2CD499FF9CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5214A18-9575-4CCE-9163-F2CD499FF9CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5214A18-9575-4CCE-9163-F2CD499FF9CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5214A18-9575-4CCE-9163-F2CD499FF9CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BFF6117-5A16-41BF-A8A5-F5011F21B07D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BFF6117-5A16-41BF-A8A5-F5011F21B07D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BFF6117-5A16-41BF-A8A5-F5011F21B07D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BFF6117-5A16-41BF-A8A5-F5011F21B07D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE920C11-0572-4258-9161-5ED96D61B2DC}
+	EndGlobalSection
+EndGlobal
