@@ -10,6 +10,11 @@ public class Table : IColumnAdd, IRowAdd
     public IReadOnlyCollection<Column> Columns => _columns;
     public IReadOnlyCollection<Row> Rows => _rows;
 
+    public Table() { }
+    public Table(IEnumerable<Column> columns)
+        : this(columns, Enumerable.Empty<Row>()) { }
+    public Table(IEnumerable<Column> columns, IEnumerable<Row> rows) => AddColumns(columns).AddRow(rows);
+
     public IColumnAdd AddColumn(string name, Align align = Align.Left, Align rowAlign = Align.Left, int? minWidth = null, ITypeHandler? typeHandler = null)
         => AddColumn(new Column(name, align, rowAlign, minWidth, typeHandler));
 
