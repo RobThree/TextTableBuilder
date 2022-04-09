@@ -1,3 +1,5 @@
 ﻿namespace TextTableBuilder;
 
-public record ObjectRow(object Value) : Row();
+public record ObjectRow(
+    object Value
+) : Row();

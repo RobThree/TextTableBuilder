@@ -13,8 +13,7 @@ public class Program
         t.AddColumn("A", Align.Center, Align.Center)
             .AddColumn("B", Align.Right, Align.Right, 12)
             .AddColumn("C", typeHandler: new CurrencyTypeHandler())
-            .AddColumn("D")
-            .AddColumn("E", Align.Center, Align.Center)
+            .AddColumns(new[] { "D", "E" })
 
             //.AddRow("Foo", 1, 2.23m, DateTime.Now, IPAddress.IPv6Any)
             //.AddRow("F", 1, 2.23m, DateTime.Now, IPAddress.IPv6Any)

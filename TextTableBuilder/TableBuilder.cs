@@ -44,13 +44,14 @@ public class TableBuilder
                         // Use typehandler from colum when specified, else use typehandler from type from value
                         : (cols[i].TypeHandler ?? TypeHandlers.GetHandler(v.GetType())).Handle(v, formatProvider)).ToArray();
 
+            // Make sure we have all cells
             if (rowvalues.Length != cols.Length)
             {
                 throw new InvalidOperationException($"Number of values must match columns (row {rows.Count})");
             }
-
+            // Add row to internal collection
             rows.Add(rowvalues);
-
+            // Update column widths
             for (var i = 0; i < cols.Length; i++)
             {
                 colwidths[i] = colwidths[i] < rowvalues[i].Length ? rowvalues[i].Length : colwidths[i];
