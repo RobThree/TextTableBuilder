@@ -24,6 +24,15 @@ public class Table : IColumnAdd, IRowAdd
         return this;
     }
 
+    public IColumnAdd AddColumns(IEnumerable<Column> columns)
+    {
+        foreach (var column in columns)
+        {
+            AddColumn(column);
+        }
+        return this;
+    }
+
     public IRowAdd AddRow(params object[] values)
         => AddRow(new ValueRow(values));
 
@@ -69,6 +78,36 @@ public class Table : IColumnAdd, IRowAdd
         if (obj is not null)
         {
             return AddRow(new ObjectRow(obj));
+        }
+
+        return this;
+    }
+
+    public IRowAdd AddRows(IEnumerable<ValueRow> rows)
+    {
+        foreach (var row in rows)
+        {
+            AddRow(row);
+        }
+
+        return this;
+    }
+
+    public IRowAdd AddRows(IEnumerable<ObjectRow> rows)
+    {
+        foreach (var row in rows)
+        {
+            AddRow(row);
+        }
+
+        return this;
+    }
+
+    public IRowAdd AddRows<T>(IEnumerable<T> values)
+    {
+        foreach (var value in values)
+        {
+            AddRow(value);
         }
 
         return this;
