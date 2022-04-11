@@ -71,6 +71,12 @@ When a columnname is specified as `"^Salary"`, the column name will be right ali
 
 If you want more control over a column you'll need to use the `AddColumn()` method which allows you to specify a minimum width for the column as well as a `TypeHandler` (see [Type Handling](#type-handling)).
 
+## Column widths
+
+A column, by default, simply stretches to be wide enough to contain all values in that column. You can, however, specify a minimum width (`MinWidth`) or a width (`Width`). The `MinWidth` ensures the column is always at least the number of specified characters wide, but may be less wide when the column only contains values of less length. The `Width` ensures a column is always exactly the specified width. Longer values will be truncated. Note that truncating depends on the alignment of the values. Right-aligned values will be truncated from the left, left-aligned values will be truncated from the right and center-aligned values will be truncated from both sides.
+
+To specifiy a width, use either the `AddColumn()` overload that allows you to pass an optional `minWidth` or `width` argument, or the `AddColumn(Column)` overload and specify the `width` or `minWidth` with the `Column`'s constructor arguments.
+
 ## Internationalization (i18n)
 
 TextTableBuilder supports i18n by supporting an `IFormatProvider` which can be specified by passing it to the `Build()` method. The above example is based on an `en_US` locale. If we pass another locale, we get:
