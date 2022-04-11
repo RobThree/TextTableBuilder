@@ -15,8 +15,8 @@ public class Table
         : this(columns, Enumerable.Empty<Row>()) { }
     public Table(IEnumerable<Column> columns, IEnumerable<Row> rows) => AddColumns(columns).AddRow(rows);
 
-    public Table AddColumn(string name, Align align = Align.Left, Align rowAlign = Align.Left, int? minWidth = null, ITypeHandler? typeHandler = null)
-        => AddColumn(new Column(name, align, rowAlign, minWidth, typeHandler));
+    public Table AddColumn(string name, Align align = Align.Left, Align rowAlign = Align.Left, int? minWidth = null, int? width = null, ITypeHandler? typeHandler = null)
+        => AddColumn(new Column(name, align, rowAlign, minWidth, width, typeHandler));
 
     public Table AddColumn(Column column)
     {

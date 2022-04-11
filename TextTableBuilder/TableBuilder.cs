@@ -32,7 +32,7 @@ public class TableBuilder
 
         // Iterate all rows, creating strings from all values and keep track of column widths
         var cols = table.Columns.ToArray();
-        var colwidths = cols.Select((c, i) => Math.Max(cols[i].MinWidth ?? 0, c.Name.Length)).ToArray();  // Initialize column widths to header widths or minimum widths; whichever is larger
+        var colwidths = cols.Select((c, i) => Math.Max(cols[i].MinWidth ?? 0, Math.Min(c.Width ?? int.MaxValue, c.Name.Length))).ToArray();  // Initialize column widths to header widths or minimum widths or fixed widths; whichever is larger
         var rows = new List<string[]>(table.Rows.Count);
         foreach (var row in table.Rows)
         {
@@ -62,12 +62,14 @@ public class TableBuilder
                 colwidths[i] = colwidths[i] < rowvalues[i].Length ? rowvalues[i].Length : colwidths[i];
             }
         }
+        // For columns width a fixed width we may need to clamp the values
+        colwidths = cols.Select((w, i) => Math.Min(w.Width ?? int.MaxValue, colwidths[i])).ToArray();
 
         // Now build actual table
         var sb = new StringBuilder();
 
         // Headers
-        sb.AppendLine(MakeRow(tableStyle, table.Columns.Select((col, i) => AlignString(col.Name, col.Align, colwidths[i], tableStyle.Padding))));
+        sb.AppendLine(MakeRow(tableStyle, table.Columns.Select((col, i) => MakeCell(col.Name, col.Align, colwidths[i], tableStyle.Padding))));
 
         // Header separator
         if (tableStyle.HeaderSeparator is not null)
@@ -78,7 +80,7 @@ public class TableBuilder
         // Rows
         foreach (var row in rows)
         {
-            sb.AppendLine(MakeRow(tableStyle, row.Select((value, i) => AlignString(value, cols[i].RowAlign, colwidths[i], tableStyle.Padding))));
+            sb.AppendLine(MakeRow(tableStyle, row.Select((value, i) => MakeCell(value, cols[i].RowAlign, colwidths[i], tableStyle.Padding))));
         }
         return sb.ToString();
     }
@@ -86,11 +88,22 @@ public class TableBuilder
     private static string MakeRow(TableStyle tableStyle, IEnumerable<string> values)
         => string.Join(tableStyle.ColumnSeparator, values);
 
+    private static string MakeCell(string value, Align align, int width, char paddingChar)
+        => AlignString(TruncateString(value, align, width), align, width, paddingChar);
+
     private static string AlignString(string value, Align align, int width, char paddingChar)
         => align switch
         {
             Align.Right => value.PadLeft(width, paddingChar),
             Align.Center => value.PadLeft((width - value.Length) / 2 + value.Length, paddingChar).PadRight(width, paddingChar),
             _ => value.PadRight(width, paddingChar)
+        };
+
+    private static string TruncateString(string value, Align align, int length)
+        => align switch
+        {
+            Align.Right => value.Substring(Math.Max(value.Length - length, 0), Math.Min(value.Length, length)),
+            Align.Center => value.Substring(Math.Max((value.Length - length) / 2, 0), Math.Min(length, value.Length)),
+            _ => value.Substring(0, Math.Min(length, value.Length))
         };
 }

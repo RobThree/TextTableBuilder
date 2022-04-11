@@ -17,6 +17,8 @@
 		<PackageTags>text;table;simple</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Version>1.0.1</Version>
+		<PackageReleaseNotes>Added support for fixed-width columns</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>
