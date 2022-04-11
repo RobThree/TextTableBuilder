@@ -1,6 +1,6 @@
 ﻿namespace TextTableBuilder.ObjectHandlers;
 
-public abstract class DelegatingObjectHandler<T> : IObjectHandler
+public class DelegatingObjectHandler<T> : IObjectHandler
 {
     private readonly Func<T, int, object[]> _delegate;
 

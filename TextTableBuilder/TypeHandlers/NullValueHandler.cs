@@ -1,14 +1,14 @@
 ﻿namespace TextTableBuilder.TypeHandlers;
 
-public class NullHandler : INullValueHandler
+public class NullValueHandler : INullValueHandler
 {
-    public static readonly INullValueHandler Default = new NullHandler();
+    public static readonly INullValueHandler Default = new NullValueHandler();
 
     private readonly string _nullvalue;
 
-    public NullHandler()
+    public NullValueHandler()
         : this(string.Empty) { }
-    public NullHandler(string nullValue)
+    public NullValueHandler(string nullValue)
         => _nullvalue = nullValue;
 
     public string Handle(IFormatProvider formatProvider) => _nullvalue;

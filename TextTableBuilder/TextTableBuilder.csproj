@@ -5,6 +5,29 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Authors>RobIII</Authors>
+		<Company>Devcorner.nl</Company>
+		<Description>Simple, opinionated, modern table builder</Description>
+		<Copyright>(C) 2022 Devcorner.nl</Copyright>
+		<PackageProjectUrl>https://github.com/RobThree/TextTableBuilder</PackageProjectUrl>
+		<PackageIcon>logo.png</PackageIcon>
+		<RepositoryUrl>https://github.com/RobThree/TextTableBuilder</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>text;table;simple</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\logo.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 </Project>

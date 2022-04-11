@@ -1,6 +1,6 @@
 ﻿namespace TextTableBuilder.TypeHandlers;
 
-public abstract class DelegatingTypeHandler<T> : ITypeHandler
+public class DelegatingTypeHandler<T> : ITypeHandler
 {
     private readonly Func<T, IFormatProvider, string> _delegate;
 

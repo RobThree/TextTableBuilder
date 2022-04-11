@@ -2,7 +2,9 @@
 
 public class TypeHandlerCollection : HandlerCollection<ITypeHandler>
 {
-    public INullValueHandler NullValueHandler { get; set; } = NullHandler.Default;
+    public INullValueHandler NullValueHandler { get; set; } = TypeHandlers.NullValueHandler.Default;
+
+    public void AddHandler<T>(Func<T, IFormatProvider, string> func) => AddHandler<T>(new DelegatingTypeHandler<T>(func));
 
     public TypeHandlerCollection()
     {
