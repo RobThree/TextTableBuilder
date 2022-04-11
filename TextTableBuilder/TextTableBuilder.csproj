@@ -17,8 +17,8 @@
 		<PackageTags>text;table;simple</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>1.0.3</Version>
-		<PackageReleaseNotes>Fix type mixup for ulong/ushort/short.</PackageReleaseNotes>
+		<Version>1.0.4</Version>
+		<PackageReleaseNotes>Fix timespan</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>
