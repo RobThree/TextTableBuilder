@@ -14,10 +14,10 @@ table.AddColumn("No")
     .AddColumn("Name")
     .AddColumn("Position")
     .AddColumn("Salary", Align.Right, Align.Right)  // Align column header and values to the right
-    .AddRow("1", "Bill Gates", "Founder Microsoft", 10000)
-    .AddRow("2", "Steve Jobs", "Founder Apple", 1200000)
-    .AddRow("3", "Larry Page", "Founder Google", 1100000)
-    .AddRow("4", "Mark Zuckerberg", "Founder Facebook", 1300000);
+    .AddRow(1, "Bill Gates", "Founder Microsoft", 10000)
+    .AddRow(2, "Steve Jobs", "Founder Apple", 1200000)
+    .AddRow(3, "Larry Page", "Founder Google", 1100000)
+    .AddRow(4, "Mark Zuckerberg", "Founder Facebook", 1300000);
 
 // Use TableBuilder to render table
 var tablebuilder = new TableBuilder();
@@ -42,7 +42,7 @@ An easier, quicker way to add columns is to invoke `AddColumns()`. By passing an
 ```c#
 var table = new Table();
 table.AddColumns(new[] { "No.", "Name", "Position", "^Salary^" })
-    .AddRow("1", "Bill Gates", "Founder Microsoft", 10000)
+    .AddRow(1, "Bill Gates", "Founder Microsoft", 10000)
     // etc...
 ```
 
@@ -117,10 +117,10 @@ So when we then specify our values as decimals (by adding the `m`-suffix)...
 ```c#
 var table = new Table();
 table.AddColumns(new[] { "No.", "Name", "Position", "^Salary^" })
-    .AddRow("1", "Bill Gates", "Founder Microsoft", 10000m)
-    .AddRow("2", "Steve Jobs", "Founder Apple", 1200000m)
-    .AddRow("3", "Larry Page", "Founder Google", 1100000m)
-    .AddRow("4", "Mark Zuckerberg", "Founder Facebook", 1300000m);
+    .AddRow(1, "Bill Gates", "Founder Microsoft", 10000m)
+    .AddRow(2, "Steve Jobs", "Founder Apple", 1200000m)
+    .AddRow(3, "Larry Page", "Founder Google", 1100000m)
+    .AddRow(4, "Mark Zuckerberg", "Founder Facebook", 1300000m);
 ```
 
 ...and we register our new `CurrencyTypeHandler`...
