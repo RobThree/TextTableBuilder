@@ -134,10 +134,10 @@ Console.WriteLine(tablebuilder.Build(table, new CultureInfo("en_US")));
 ```cmd
 No. | Name            | Position          |         Salary
 --- | --------------- | ----------------- | --------------
-1   | Bill Gates      | Founder Microsoft |    $ 10.000,00
-2   | Steve Jobs      | Founder Apple     | $ 1.200.000,00
-3   | Larry Page      | Founder Google    | $ 1.100.000,00
-4   | Mark Zuckerberg | Founder Facebook  | $ 1.300.000,00
+1   | Bill Gates      | Founder Microsoft |    $ 10,000.00
+2   | Steve Jobs      | Founder Apple     | $ 1,200,000.00
+3   | Larry Page      | Founder Google    | $ 1,100,000.00
+4   | Mark Zuckerberg | Founder Facebook  | $ 1,300,000.00
 ```
 
 An alternative method of creating a `TypeHandler` is to inherit from `DelegatingTypeHandler<T>` which allows you to simply use a delegate function:
@@ -241,10 +241,10 @@ Which outputs:
 ```cmd
 Name            | Position          |       Salary
 --------------- | ----------------- | ------------
-Bill Gates      | Founder Microsoft |    10.000,00
-Steve Jobs      | Founder Apple     | 1.200.000,00
-Larry Page      | Founder Google    | 1.100.000,00
-Mark Zuckerberg | Founder Facebook  | 1.300.000,00
+Bill Gates      | Founder Microsoft |    10,000.00
+Steve Jobs      | Founder Apple     | 1,200,000.00
+Larry Page      | Founder Google    | 1,100,000.00
+Mark Zuckerberg | Founder Facebook  | 1,300,000.00
 ```
 
 TextTableBuilder will still use the `TypeHandler`s to handle the types of the values as always.
