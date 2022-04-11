@@ -18,7 +18,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Version>1.0.2</Version>
-		<PackageReleaseNotes>Added support for fixed-width columns</PackageReleaseNotes>
+		<PackageReleaseNotes>Columns with no specific columorder are defaulted to int.MaxValue</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>
