@@ -239,7 +239,7 @@ public class PersonHandler : DelegatingObjectHandler<Person>
 Even shorter:
 
 ```c#
-tablebuilder.ObjectHandlers.AddHandler<Person>(new DelegatingObjectHandler<decimal>((value, fp) => new object[] { person.Name, person.Position, person.Salary }));
+tablebuilder.ObjectHandlers.AddHandler<Person>(new DelegatingObjectHandler<decimal>((person, fp) => new object[] { person.Name, person.Position, person.Salary }));
 ```
 
 Still shorter:
