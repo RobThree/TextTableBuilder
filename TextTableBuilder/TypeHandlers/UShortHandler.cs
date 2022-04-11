@@ -2,5 +2,5 @@
 
 public class UShortHandler : NaturalNumberHandler
 {
-    public override string Handle(object value, IFormatProvider formatProvider) => ((ulong)value).ToString(Format, formatProvider);
+    public override string Handle(object value, IFormatProvider formatProvider) => ((ushort)value).ToString(Format, formatProvider);
 }
