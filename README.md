@@ -1,5 +1,9 @@
 ﻿# <img src="logo.png" width="64" height="64" alt="logo" align="left"> TextTableBuilder
-A simple, opnionated, modern table builder. Supports configuring how different datatypes will be formatted.
+
+[![Build status](https://ci.appveyor.com/api/projects/status/am77wpby61rbgqxh)](https://ci.appveyor.com/project/RobIII/texttablebuilder) <a href="https://www.nuget.org/packages/TextTableBuilder/"><img src="http://img.shields.io/nuget/v/TextTableBuilder.svg?style=flat-square" alt="NuGet version" height="18"></a>
+
+A simple, opnionated, modern table builder. Supports configuring how different datatypes will be formatted. Available as [Nuget package](https://www.nuget.org/packages/TextTableBuilder/)
+
 
 ## Quickstart
 
@@ -379,3 +383,7 @@ No║Name           ║Position         ║   Salary
 3 ║Larry Page     ║Founder Google   ║1,100,000
 4 ║Mark Zuckerberg║Founder Facebook ║1,300,000
 ```
+
+<hr>
+
+Icon made by [Freepik](http://www.flaticon.com/authors/freepik) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0](http://creativecommons.org/licenses/by/3.0/).
