@@ -17,8 +17,8 @@
 		<PackageTags>text;table;simple</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>1.0.4</Version>
-		<PackageReleaseNotes>Fix timespan</PackageReleaseNotes>
+		<Version>1.0.5</Version>
+		<PackageReleaseNotes>DelegatingObjectHandler is now nullable aware.</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>
