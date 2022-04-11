@@ -118,9 +118,7 @@ So when we then specify our values as decimals (by adding the `m`-suffix)...
 var table = new Table();
 table.AddColumns(new[] { "No.", "Name", "Position", "^Salary^" })
     .AddRow(1, "Bill Gates", "Founder Microsoft", 10000m)
-    .AddRow(2, "Steve Jobs", "Founder Apple", 1200000m)
-    .AddRow(3, "Larry Page", "Founder Google", 1100000m)
-    .AddRow(4, "Mark Zuckerberg", "Founder Facebook", 1300000m);
+    // etc ...
 ```
 
 ...and we register our new `CurrencyTypeHandler`...
@@ -190,9 +188,7 @@ public record Person(string Name, string Position, decimal Salary);
 var persons = new[]
 {
     new Person("Bill Gates", "Founder Microsoft", 10000m),
-    new Person("Steve Jobs", "Founder Apple", 1200000m),
-    new Person("Larry Page", "Founder Google", 1100000m),
-    new Person("Mark Zuckerberg", "Founder Facebook", 1300000m),
+    // etc ...
 };
 ```
 #### Default object handling
@@ -312,9 +308,7 @@ If we now print the table:
 var persons = new[]
 {
     new Person("Bill Gates", "Founder Microsoft", 10000m, new DateTime(1955, 10, 28)),
-    new Person("Steve Jobs", "Founder Apple", 1200000m, new DateTime(1955, 2, 24)),
-    new Person("Larry Page", "Founder Google", 1100000m, new DateTime(1973, 3, 26)),
-    new Person("Mark Zuckerberg", "Founder Facebook", 1300000m, new DateTime(1984, 3, 14)),
+    // etc ...
 };
 
  var table = new Table();
