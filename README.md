@@ -420,6 +420,7 @@ var tablebuilder = new TableBuilder();
 // Specify object handler to use for persons
 tablebuilder.ObjectHandlers.AddHandler<Person>((person, columnCount) => new object[] { person.Name, person.Position, person.Salary });
 Console.WriteLine(tablebuilder.Build(table));
+```
 
 ---
 
