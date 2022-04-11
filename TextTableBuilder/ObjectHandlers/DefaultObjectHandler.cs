@@ -14,8 +14,8 @@ public class DefaultObjectHandler : IObjectHandler
         var props = _propertycache.GetOrAdd(value.GetType(), (t) => t
             .GetProperties(BindingFlags.Instance | BindingFlags.Public)
             .Where(p => p.CanRead)
-            .OrderBy(p => _columnordercache.GetOrAdd(p, (pi) => pi.GetCustomAttribute<ColumnOrderAttribute>()?.Order ?? 0))
-            .ThenBy(p => p.Name)
+            .OrderBy(p => _columnordercache.GetOrAdd(p, (pi) => pi.GetCustomAttribute<ColumnOrderAttribute>()?.Order ?? int.MaxValue))
+            .ThenBy(p => p.Name, StringComparer.CurrentCultureIgnoreCase)
             .ToArray()
         );
 

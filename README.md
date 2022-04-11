@@ -1,4 +1,4 @@
-﻿# <img src="logo.png" width="64" height="64" alt="logo" align="left"> TextTableBuilder
+﻿# ![Logo](logo.png) TextTableBuilder
 
 [![Build status](https://ci.appveyor.com/api/projects/status/am77wpby61rbgqxh)](https://ci.appveyor.com/project/RobIII/texttablebuilder) <a href="https://www.nuget.org/packages/TextTableBuilder/"><img src="http://img.shields.io/nuget/v/TextTableBuilder.svg?style=flat-square" alt="NuGet version" height="18"></a>
 
@@ -195,7 +195,24 @@ var persons = new[]
     new Person("Mark Zuckerberg", "Founder Facebook", 1300000m),
 };
 ```
+#### Default object handling
 
+By default the TextTableBuilder outputs properties of objects in alfabetical order; for our example that just happens to work out:
+
+```c#
+var table = new Table();
+table.AddColumns(new[] { "Name", "Position", "^Salary^" })
+    .AddRows(persons);
+
+var tablebuilder = new TableBuilder();
+Console.WriteLine(tablebuilder.Build(table));
+```
+
+The order of the outputted properties can be changed by using a [ColumnOrder attribute](#columnorder-attribute). Properties (or fields) that don't have this attribute will be ordered by name.
+
+You'll probably want (a lot) more control; in which case you should look into [Custom object handling](#custom-object-handling).
+
+#### Custom object handling
 First, we implement an `IObjectHandler`:
 
 ```c#
@@ -390,6 +407,20 @@ No║Name           ║Position         ║   Salary
 4 ║Mark Zuckerberg║Founder Facebook ║1,300,000
 ```
 
-<hr>
+## Example
+
+With all the examples above demonstrating a specific option each, you may not have noticed how easy this package can make your life (that's what it's meant to do). So here's an example that shows typical usage. Assuming you have a `Person` class/record but you can't (or don't want to) 'pollute' it with `ColumnOrder`-attributes:
+
+```c#
+var table = new Table()
+    .AddColumns(new[] { "Name", "Position", "^Salary^" })
+    .AddRows(DBContext.Persons.Where(p => p.Salary > 100));
+
+var tablebuilder = new TableBuilder();
+// Specify object handler to use for persons
+tablebuilder.ObjectHandlers.AddHandler<Person>((person, columnCount) => new object[] { person.Name, person.Position, person.Salary });
+Console.WriteLine(tablebuilder.Build(table));
+
+---
 
 Icon made by [Freepik](http://www.flaticon.com/authors/freepik) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0](http://creativecommons.org/licenses/by/3.0/).
