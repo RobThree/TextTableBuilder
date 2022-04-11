@@ -69,7 +69,7 @@ Columnames can be prefixed and suffixed with:
 
 When a columnname is specified as `"^Salary"`, the column name will be right aligned, the values will default to left. When the name is specified as `"Salary^"` the column values will be right aligned, the column name itself will default to left aligned. And, finally, when the name is specified as `"^Salary^"` then both the column name and values will be right aligned.
 
-If you want more control over a column you'll need to use the `AddColumn()` method which allows you to specify a minimum width for the column as well as a `TypeHandler` (see [Type Handling](#type-handling)).
+If you want more control over a column you'll need to use the `AddColumn()` method which allows you to specify a minimum / fixed width for the column as well as a `TypeHandler` (see [Type Handling](#type-handling)).
 
 ## Column widths
 
