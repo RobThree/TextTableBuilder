@@ -168,6 +168,8 @@ And for those about to point out this can be written even shorter:
 tablebuilder.TypeHandlers.AddHandler<decimal>((v, _) => $"$ {v:N2}");
 ```
 
+A `TypeHandler` can also be passed to a `Column`'s constructor, in which case that `TypeHandler` is used for all values in that column.
+
 ### Null value handling
 
 A special case is the `NullValueHandler`; by default a `null` value is formatted as an empty string. However, you may want to show `null` values as "`<NULL>`" for example. To accomplish this we simply use the built-in `NullValueHandler`:
