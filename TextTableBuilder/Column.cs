@@ -4,8 +4,8 @@ namespace TextTableBuilder;
 
 public record Column(
     string Name,
-    Align Align = Column.DefaultAlign,
-    Align RowAlign = Row.DefaultAlign,
+    Align HeaderAlign = Column.DefaultAlign,
+    Align ValueAlign = Row.DefaultAlign,
     int? MinWidth = null,
     int? Width = null,
     ITypeHandler? TypeHandler = null

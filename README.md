@@ -363,19 +363,22 @@ Founder Facebook  | Mark Zuckerberg | 1,300,000.00 | 1984-03-14 |            |
 
 The `DefaultObjectHandler`, by default, pads all rows with missing values with `null` values.
 
-## Styles
+## Table Renderers
 
-The TextTableBuilder has support for (very simple) styles. These can be specified as an optional argument to the `Build()` method. Currently only a very few styles are supported.
+The TextTableBuilder uses an `ITableRenderer` to do the actual 'rendering' of the table. The TableRenderer is provided with `RenderColums`, which provide column information, and an `IEnumerable<string[]>` which represents the rows and values. The values have been formatted at this point; the table renderer takes care of aligning, padding etc.
 
-To specify a style, invoke the `Build()` method with a `style` argument:
+By default, the TextTableBuilder uses the `DefaultTableRenderer` which produced the above examples. Two other, very simple, renderers are provided. These are the `MinimalTableRenderer` and `MSDOSTableRenderer`.
+
+To use a specific `ITableRenderer` you pass one to the `Build()` method:
+
 
 ```c#
-Console.WriteLine(tablebuilder.Build(table, TableStyle.MSDOS));
+Console.WriteLine(tablebuilder.Build(table, new MSDOSTableRenderer()));
 ```
 
-Going back to our [very first example](#quickstart), the following styles are currently implemented. More _may_ be added in the future (as well as ANSI color support etc.):
+Going back to our [very first example](#quickstart), the following styles are currently provided. More _may_ be added in the future (as well as ANSI color support etc.) but it's also trivial to build your own; just implement `ITableRenderer`:
 
-### TableStyle.Default
+### DefaultTableRenderer
 
 ```cmd
 No | Name            | Position          |    Salary
@@ -386,7 +389,7 @@ No | Name            | Position          |    Salary
 4  | Mark Zuckerberg | Founder Facebook  | 1,300,000
 ```
 
-### TableStyle.Minimal
+### MinimalTableRenderer
 
 ```cmd
 No Name            Position             Salary
@@ -396,7 +399,7 @@ No Name            Position             Salary
 4  Mark Zuckerberg Founder Facebook  1,300,000
 ```
 
-### TableStyle.MSDOS
+### MSDOSTableRenderer
 
 ```cmd
 No║Name           ║Position         ║   Salary

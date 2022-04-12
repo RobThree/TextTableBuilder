@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
-using System.Text;
 using TextTableBuilder.ObjectHandlers;
+using TextTableBuilder.TableRenderers;
 using TextTableBuilder.TypeHandlers;
 
 namespace TextTableBuilder;
@@ -10,19 +10,27 @@ public class TableBuilder
     public TypeHandlerCollection TypeHandlers { get; } = new();
     public ObjectHandlerCollection ObjectHandlers { get; } = new();
 
+    public static readonly ITableRenderer DefaultTableRenderer = new DefaultTableRenderer();
+
     public string Build(Table table)
-        => Build(table, TableStyle.Default);
+        => Build(table, DefaultTableRenderer, CultureInfo.CurrentUICulture);
 
-    public string Build(Table table, TableStyle tableStyle)
-        => Build(table, tableStyle, CultureInfo.CurrentUICulture);
+    public string Build(Table table, ITableRenderer tableRenderer)
+        => Build(table, tableRenderer, CultureInfo.CurrentUICulture);
+
     public string Build(Table table, IFormatProvider formatProvider)
-        => Build(table, TableStyle.Default, formatProvider);
+        => Build(table, DefaultTableRenderer, formatProvider);
 
-    public string Build(Table table, TableStyle tableStyle, IFormatProvider formatProvider)
+    public string Build(Table table, ITableRenderer tableRenderer, IFormatProvider formatProvider)
     {
         if (table is null)
         {
             throw new ArgumentNullException(nameof(table));
+        }
+
+        if (tableRenderer is null)
+        {
+            throw new ArgumentNullException(nameof(tableRenderer));
         }
 
         if (formatProvider is null)
@@ -66,44 +74,9 @@ public class TableBuilder
         colwidths = cols.Select((w, i) => Math.Min(w.Width ?? int.MaxValue, colwidths[i])).ToArray();
 
         // Now build actual table
-        var sb = new StringBuilder();
-
-        // Headers
-        sb.AppendLine(MakeRow(tableStyle, table.Columns.Select((col, i) => MakeCell(col.Name, col.Align, colwidths[i], tableStyle.Padding))));
-
-        // Header separator
-        if (tableStyle.HeaderSeparator is not null)
-        {
-            sb.AppendLine(MakeRow(tableStyle, colwidths.Select(w => new string(tableStyle.HeaderSeparator.Value, w))));
-        }
-
-        // Rows
-        foreach (var row in rows)
-        {
-            sb.AppendLine(MakeRow(tableStyle, row.Select((value, i) => MakeCell(value, cols[i].RowAlign, colwidths[i], tableStyle.Padding))));
-        }
-        return sb.ToString();
+        return tableRenderer.Render(
+            Array.AsReadOnly(table.Columns.Select((c, i) => new RenderColumn(c.Name, colwidths[i], c.HeaderAlign, c.ValueAlign)).ToArray()),
+            rows
+        );
     }
-
-    private static string MakeRow(TableStyle tableStyle, IEnumerable<string> values)
-        => string.Join(tableStyle.ColumnSeparator, values);
-
-    private static string MakeCell(string value, Align align, int width, char paddingChar)
-        => AlignString(TruncateString(value, align, width), align, width, paddingChar);
-
-    private static string AlignString(string value, Align align, int width, char paddingChar)
-        => align switch
-        {
-            Align.Right => value.PadLeft(width, paddingChar),
-            Align.Center => value.PadLeft((width - value.Length) / 2 + value.Length, paddingChar).PadRight(width, paddingChar),
-            _ => value.PadRight(width, paddingChar)
-        };
-
-    private static string TruncateString(string value, Align align, int length)
-        => align switch
-        {
-            Align.Right => value.Substring(Math.Max(value.Length - length, 0), Math.Min(value.Length, length)),
-            Align.Center => value.Substring(Math.Max((value.Length - length) / 2, 0), Math.Min(length, value.Length)),
-            _ => value.Substring(0, Math.Min(length, value.Length))
-        };
 }
