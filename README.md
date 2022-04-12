@@ -69,11 +69,11 @@ Columnames can be prefixed and suffixed with:
 
 When a columnname is specified as `"^Salary"`, the column name will be right aligned, the values will default to left. When the name is specified as `"Salary^"` the column values will be right aligned, the column name itself will default to left aligned. And, finally, when the name is specified as `"^Salary^"` then both the column name and values will be right aligned.
 
-If you want more control over a column you'll need to use the `AddColumn()` method which allows you to specify a minimum width for the column as well as a `TypeHandler` (see [Type Handling](#type-handling)).
+If you want more control over a column you'll need to use the `AddColumn()` method which allows you to specify a minimum / fixed width for the column as well as a `TypeHandler` (see [Type Handling](#type-handling)).
 
 ## Column widths
 
-A column, by default, simply stretches to be wide enough to contain all values in that column. You can, however, specify a minimum width (`MinWidth`) or a width (`Width`). The `MinWidth` ensures the column is always at least the number of specified characters wide, but may be less wide when the column only contains values of less length. The `Width` ensures a column is always exactly the specified width. Longer values will be truncated. Note that truncating depends on the alignment of the values. Right-aligned values will be truncated from the left, left-aligned values will be truncated from the right and center-aligned values will be truncated from both sides.
+A column, by default, simply stretches to be wide enough to contain all values in that column. You can, however, specify a minimum width (`MinWidth`) or a width (`Width`). The `MinWidth` ensures the column is always at least the number of specified characters wide, but may be wider when the column contains longer values. The `Width` ensures a column is always exactly the specified width. Longer values will be truncated. Note that truncating depends on the alignment of the values. Right-aligned values will be truncated from the left, left-aligned values will be truncated from the right and center-aligned values will be truncated from both sides.
 
 To specifiy a width, use either the `AddColumn()` overload that allows you to pass an optional `minWidth` or `width` argument, or the `AddColumn(Column)` overload and specify the `width` or `minWidth` with the `Column`'s constructor arguments.
 
@@ -118,9 +118,7 @@ So when we then specify our values as decimals (by adding the `m`-suffix)...
 var table = new Table();
 table.AddColumns(new[] { "No.", "Name", "Position", "^Salary^" })
     .AddRow(1, "Bill Gates", "Founder Microsoft", 10000m)
-    .AddRow(2, "Steve Jobs", "Founder Apple", 1200000m)
-    .AddRow(3, "Larry Page", "Founder Google", 1100000m)
-    .AddRow(4, "Mark Zuckerberg", "Founder Facebook", 1300000m);
+    // etc ...
 ```
 
 ...and we register our new `CurrencyTypeHandler`...
@@ -136,10 +134,10 @@ Console.WriteLine(tablebuilder.Build(table, new CultureInfo("en_US")));
 ```cmd
 No. | Name            | Position          |         Salary
 --- | --------------- | ----------------- | --------------
-1   | Bill Gates      | Founder Microsoft |    $ 10.000,00
-2   | Steve Jobs      | Founder Apple     | $ 1.200.000,00
-3   | Larry Page      | Founder Google    | $ 1.100.000,00
-4   | Mark Zuckerberg | Founder Facebook  | $ 1.300.000,00
+1   | Bill Gates      | Founder Microsoft |    $ 10,000.00
+2   | Steve Jobs      | Founder Apple     | $ 1,200,000.00
+3   | Larry Page      | Founder Google    | $ 1,100,000.00
+4   | Mark Zuckerberg | Founder Facebook  | $ 1,300,000.00
 ```
 
 An alternative method of creating a `TypeHandler` is to inherit from `DelegatingTypeHandler<T>` which allows you to simply use a delegate function:
@@ -170,6 +168,8 @@ And for those about to point out this can be written even shorter:
 tablebuilder.TypeHandlers.AddHandler<decimal>((v, _) => $"$ {v:N2}");
 ```
 
+A `TypeHandler` can also be passed to a `Column`'s constructor, in which case that `TypeHandler` is used for all values in that column.
+
 ### Null value handling
 
 A special case is the `NullValueHandler`; by default a `null` value is formatted as an empty string. However, you may want to show `null` values as "`<NULL>`" for example. To accomplish this we simply use the built-in `NullValueHandler`:
@@ -190,9 +190,7 @@ public record Person(string Name, string Position, decimal Salary);
 var persons = new[]
 {
     new Person("Bill Gates", "Founder Microsoft", 10000m),
-    new Person("Steve Jobs", "Founder Apple", 1200000m),
-    new Person("Larry Page", "Founder Google", 1100000m),
-    new Person("Mark Zuckerberg", "Founder Facebook", 1300000m),
+    // etc ...
 };
 ```
 #### Default object handling
@@ -245,10 +243,10 @@ Which outputs:
 ```cmd
 Name            | Position          |       Salary
 --------------- | ----------------- | ------------
-Bill Gates      | Founder Microsoft |    10.000,00
-Steve Jobs      | Founder Apple     | 1.200.000,00
-Larry Page      | Founder Google    | 1.100.000,00
-Mark Zuckerberg | Founder Facebook  | 1.300.000,00
+Bill Gates      | Founder Microsoft |    10,000.00
+Steve Jobs      | Founder Apple     | 1,200,000.00
+Larry Page      | Founder Google    | 1,100,000.00
+Mark Zuckerberg | Founder Facebook  | 1,300,000.00
 ```
 
 TextTableBuilder will still use the `TypeHandler`s to handle the types of the values as always.
@@ -312,9 +310,7 @@ If we now print the table:
 var persons = new[]
 {
     new Person("Bill Gates", "Founder Microsoft", 10000m, new DateTime(1955, 10, 28)),
-    new Person("Steve Jobs", "Founder Apple", 1200000m, new DateTime(1955, 2, 24)),
-    new Person("Larry Page", "Founder Google", 1100000m, new DateTime(1973, 3, 26)),
-    new Person("Mark Zuckerberg", "Founder Facebook", 1300000m, new DateTime(1984, 3, 14)),
+    // etc ...
 };
 
  var table = new Table();
