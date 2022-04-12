@@ -38,9 +38,17 @@ public class TableBuilder
             throw new ArgumentNullException(nameof(formatProvider));
         }
 
-        // Iterate all rows, creating strings from all values and keep track of column widths
         var cols = table.Columns.ToArray();
+
+        if (cols.Length == 0)
+        {
+            throw new InvalidOperationException("At least one column must be specified");
+        }
+
+        // Determine preliminary columnwidths
         var colwidths = cols.Select((c, i) => Math.Max(cols[i].MinWidth ?? 0, Math.Min(c.Width ?? int.MaxValue, c.Name.Length))).ToArray();  // Initialize column widths to header widths or minimum widths or fixed widths; whichever is larger
+
+        // Iterate all rows, creating strings from all values and keep track of column widths
         var rows = new List<string[]>(table.Rows.Count);
         foreach (var row in table.Rows)
         {
@@ -51,7 +59,9 @@ public class TableBuilder
                 ObjectRow or => (ObjectHandlers.GetHandler(or.Value.GetType()) ?? ObjectHandlers.GetHandler(typeof(object))).Handle(or.Value, cols.Length),
                 _ => throw new InvalidOperationException("Unknown rowtype")
             }).Select(
-                    (v, i) => v is null
+                    (v, i) => i >= cols.Length
+                    ? throw new InvalidOperationException($"Number of values must match columns (row index: {rows.Count})")
+                    : v is null
                         // Handle the special null-case with our NullHandler (if any, empty string otherwise)
                         ? (TypeHandlers.NullValueHandler?.Handle(formatProvider) ?? string.Empty)
                         // Use typehandler from colum when specified, else use typehandler from type from value
@@ -60,8 +70,9 @@ public class TableBuilder
             // Make sure we have all cells
             if (rowvalues.Length != cols.Length)
             {
-                throw new InvalidOperationException($"Number of values must match columns (row {rows.Count})");
+                throw new InvalidOperationException($"Number of values must match columns (row index: {rows.Count})");
             }
+
             // Add row to internal collection
             rows.Add(rowvalues);
             // Update column widths
