@@ -15,7 +15,9 @@ var renderers = new ITableRenderer[] {
     new SimpleLineTableRenderer(),
     new SingleLineTableRenderer(),
     new DoubleLineTableRenderer(),
-    new HatchedTableRenderer()
+    new RoundedCornersTableRenderer(),
+    new HatchedTableRenderer(),
+    new DotsTableRenderer()
 };
 
 var tablebuilder = new TableBuilder();
