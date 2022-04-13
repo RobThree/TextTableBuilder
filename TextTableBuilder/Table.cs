@@ -40,7 +40,13 @@ public class Table
     public Table AddColumns(IEnumerable<string> columns)
         => AddColumns(columns.Select(c => Column.FromName(c)));
 
+    public Table AddColumns(params string[] columns)
+        => AddColumns(columns.Select(c => Column.FromName(c)));
+
     public Table AddRow(params object?[] values)
+        => AddRowImpl(new ValueRow(values));
+
+    public Table AddRow(params string?[] values)
         => AddRowImpl(new ValueRow(values));
 
     public Table AddRow(Row row)

@@ -4,13 +4,22 @@ namespace TextTableBuilder.TableRenderers;
 
 public abstract class BaseTableRenderer : ITableRenderer
 {
+    public const char DEFAULTPADDINGCHAR = ' ';
+    public const int DEFAULTCELLPADDING = 1;
+    
     public abstract string Render(ReadOnlyCollection<RenderColumn> columns, IEnumerable<string[]> rows);
 
-    protected static string RenderRow(string columnSeparator, IEnumerable<string> values)
-        => string.Join(columnSeparator, values);
+    protected static string RenderRow(char columnSeparator, IEnumerable<string> values, char paddingChar, int cellPadding)
+        => string.Join(columnSeparator.ToString(), values);
 
-    protected static string RenderCell(string value, Align align, int width, char paddingChar)
-        => AlignString(TruncateString(value, align, width), align, width, paddingChar);
+    protected static string RenderLine(char left, char mid, char right, char pad, ReadOnlyCollection<RenderColumn> widths, int cellPadding)
+        => $"{left}{string.Join(mid.ToString(), widths.Select(c => new string(pad, c.Width + (cellPadding * 2))))}{right}";
+
+    protected static string RenderCell(string value, Align align, int width, char paddingChar, int cellPadding)
+        => PadCell(AlignString(TruncateString(value, align, width), align, width, paddingChar), paddingChar, cellPadding);
+
+    protected static string PadCell(string value, char paddingChar, int count)
+        => value.PadLeft(value.Length + count, paddingChar).PadRight(value.Length + (count * 2), paddingChar);
 
     protected static string AlignString(string value, Align align, int width, char paddingChar)
         => align switch

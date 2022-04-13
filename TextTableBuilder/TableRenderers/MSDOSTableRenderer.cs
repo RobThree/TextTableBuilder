@@ -2,5 +2,6 @@
 
 public class MSDOSTableRenderer : SimpleTableRenderer
 {
-    public MSDOSTableRenderer() : base(' ', "║", '═') { }
+    public MSDOSTableRenderer(int cellPadding = DEFAULTCELLPADDING, char paddingChar = DEFAULTPADDINGCHAR)
+        : base('║', '═', cellPadding, paddingChar) { }
 }

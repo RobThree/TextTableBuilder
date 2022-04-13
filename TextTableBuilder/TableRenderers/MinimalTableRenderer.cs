@@ -2,5 +2,6 @@
 
 public class MinimalTableRenderer : SimpleTableRenderer
 {
-    public MinimalTableRenderer() : base(' ', " ", null) { }
+    public MinimalTableRenderer(char columnSeparator = ' ', int cellPadding = DEFAULTCELLPADDING, char paddingChar = DEFAULTPADDINGCHAR)
+        : base(columnSeparator, null, cellPadding, paddingChar) { }
 }

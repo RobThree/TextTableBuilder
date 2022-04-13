@@ -2,5 +2,6 @@
 
 public class DefaultTableRenderer : SimpleTableRenderer
 {
-    public DefaultTableRenderer() : base(' ', " | ", '-') { }
+    public DefaultTableRenderer(int cellPadding = DEFAULTCELLPADDING, char paddingChar = DEFAULTPADDINGCHAR)
+        : base('|', '-', cellPadding, paddingChar) { }
 }

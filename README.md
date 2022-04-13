@@ -363,10 +363,9 @@ The `DefaultObjectHandler`, by default, pads all rows with missing values with `
 
 The TextTableBuilder uses an `ITableRenderer` to do the actual 'rendering' of the table. The TableRenderer is provided with `RenderColums`, which provide column information, and an `IEnumerable<string[]>` which represents the rows and values. The values have been formatted at this point; the table renderer takes care of aligning, padding etc.
 
-By default, the TextTableBuilder uses the `DefaultTableRenderer` which produced the above examples. Two other, very simple, renderers are provided. These are the `MinimalTableRenderer` and `MSDOSTableRenderer`.
+By default, the TextTableBuilder uses the `DefaultTableRenderer` which produced the above examples. A few other, very simple, renderers are provided. These are the `MinimalTableRenderer` and `MSDOSTableRenderer`, `SimpleLineTableRenderer`, `SingleLineTableRenderer`, `DoubleLineTableRenderer` and `HatchedTableRenderer`.
 
 To use a specific `ITableRenderer` you pass one to the `Build()` method:
-
 
 ```c#
 Console.WriteLine(tablebuilder.Build(table, new MSDOSTableRenderer()));
@@ -374,37 +373,90 @@ Console.WriteLine(tablebuilder.Build(table, new MSDOSTableRenderer()));
 
 Going back to our [very first example](#quickstart), the following styles are currently provided. More _may_ be added in the future (as well as ANSI color support etc.) but it's also trivial to build your own; just implement `ITableRenderer`:
 
-### DefaultTableRenderer
+### DefaultTableRenderer:
 
 ```cmd
-No | Name            | Position          |    Salary
--- | --------------- | ----------------- | ---------
-1  | Bill Gates      | Founder Microsoft |    10,000
-2  | Steve Jobs      | Founder Apple     | 1,200,000
-3  | Larry Page      | Founder Google    | 1,100,000
-4  | Mark Zuckerberg | Founder Facebook  | 1,300,000
+ No | Name            | Position          |         Salary 
+----|-----------------|-------------------|----------------
+ 1  | Bill Gates      | Founder Microsoft |    $ 10,000.00 
+ 2  | Steve Jobs      | Founder Apple     | $ 1,200,000.00 
+ 3  | Larry Page      | Founder Google    | $ 1,100,000.00 
+ 4  | Mark Zuckerberg | Founder Facebook  | $ 1,300,000.00 
 ```
 
-### MinimalTableRenderer
+### MinimalTableRenderer:
 
 ```cmd
-No Name            Position             Salary
-1  Bill Gates      Founder Microsoft    10,000
-2  Steve Jobs      Founder Apple     1,200,000
-3  Larry Page      Founder Google    1,100,000
-4  Mark Zuckerberg Founder Facebook  1,300,000
+No Name            Position                  Salary
+1  Bill Gates      Founder Microsoft    $ 10,000.00
+2  Steve Jobs      Founder Apple     $ 1,200,000.00
+3  Larry Page      Founder Google    $ 1,100,000.00
+4  Mark Zuckerberg Founder Facebook  $ 1,300,000.00
 ```
 
-### MSDOSTableRenderer
+### MSDOSTableRenderer:
 
 ```cmd
-No║Name           ║Position         ║   Salary
-══║═══════════════║═════════════════║═════════
-1 ║Bill Gates     ║Founder Microsoft║   10,000
-2 ║Steve Jobs     ║Founder Apple    ║1,200,000
-3 ║Larry Page     ║Founder Google   ║1,100,000
-4 ║Mark Zuckerberg║Founder Facebook ║1,300,000
+ No ║ Name            ║ Position          ║         Salary 
+════║═════════════════║═══════════════════║════════════════
+ 1  ║ Bill Gates      ║ Founder Microsoft ║    $ 10,000.00 
+ 2  ║ Steve Jobs      ║ Founder Apple     ║ $ 1,200,000.00 
+ 3  ║ Larry Page      ║ Founder Google    ║ $ 1,100,000.00 
+ 4  ║ Mark Zuckerberg ║ Founder Facebook  ║ $ 1,300,000.00 
 ```
+
+### SimpleLineTableRenderer:
+
+```cmd
++----+-----------------+-------------------+----------------+
+| No | Name            | Position          |         Salary |
++----+-----------------+-------------------+----------------+
+| 1  | Bill Gates      | Founder Microsoft |    $ 10,000.00 |
+| 2  | Steve Jobs      | Founder Apple     | $ 1,200,000.00 |
+| 3  | Larry Page      | Founder Google    | $ 1,100,000.00 |
+| 4  | Mark Zuckerberg | Founder Facebook  | $ 1,300,000.00 |
++----+-----------------+-------------------+----------------+
+```
+
+### SingleLineTableRenderer:
+
+```cmd
+┌────┬─────────────────┬───────────────────┬────────────────┐
+│ No │ Name            │ Position          │         Salary │
+├────┼─────────────────┼───────────────────┼────────────────┤
+│ 1  │ Bill Gates      │ Founder Microsoft │    $ 10,000.00 │
+│ 2  │ Steve Jobs      │ Founder Apple     │ $ 1,200,000.00 │
+│ 3  │ Larry Page      │ Founder Google    │ $ 1,100,000.00 │
+│ 4  │ Mark Zuckerberg │ Founder Facebook  │ $ 1,300,000.00 │
+└────┴─────────────────┴───────────────────┴────────────────┘
+```
+
+### DoubleLineTableRenderer:
+
+```cmd
+╔════╦═════════════════╦═══════════════════╦════════════════╗
+║ No ║ Name            ║ Position          ║         Salary ║
+╠════╬═════════════════╬═══════════════════╬════════════════╣
+║ 1  ║ Bill Gates      ║ Founder Microsoft ║    $ 10,000.00 ║
+║ 2  ║ Steve Jobs      ║ Founder Apple     ║ $ 1,200,000.00 ║
+║ 3  ║ Larry Page      ║ Founder Google    ║ $ 1,100,000.00 ║
+║ 4  ║ Mark Zuckerberg ║ Founder Facebook  ║ $ 1,300,000.00 ║
+╚════╩═════════════════╩═══════════════════╩════════════════╝
+```
+
+### HatchedTableRenderer:
+
+```cmd
+/----+-----------------+-------------------+----------------\
+| No | Name            | Position          |         Salary |
++----+-----------------+-------------------+----------------+
+| 1  | Bill Gates      | Founder Microsoft |    $ 10,000.00 |
+| 2  | Steve Jobs      | Founder Apple     | $ 1,200,000.00 |
+| 3  | Larry Page      | Founder Google    | $ 1,100,000.00 |
+| 4  | Mark Zuckerberg | Founder Facebook  | $ 1,300,000.00 |
+\----+-----------------+-------------------+----------------/
+```
+
 
 ## Example
 
