@@ -13,7 +13,9 @@ public class Table
     public Table() { }
     public Table(IEnumerable<Column> columns)
         : this(columns, Enumerable.Empty<Row>()) { }
-    public Table(IEnumerable<Column> columns, IEnumerable<Row> rows) => AddColumns(columns).AddRow(rows);
+        
+    public Table(IEnumerable<Column> columns, IEnumerable<Row> rows) 
+        => AddColumns(columns).AddRow(rows);   
 
     public Table AddColumn(string name, Align align = Align.Left, Align rowAlign = Align.Left, int? minWidth = null, int? width = null, ITypeHandler? typeHandler = null)
         => AddColumn(new Column(name, align, rowAlign, minWidth, width, typeHandler));
@@ -30,6 +32,9 @@ public class Table
 
     public Table AddColumns(IEnumerable<Column> columns)
     {
+        if (columns is null)
+            throw new ArgumentNullException(nameof(columns));
+        
         foreach (var column in columns)
         {
             AddColumn(column);
