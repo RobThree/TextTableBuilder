@@ -33,6 +33,8 @@ No | Name            | Position          |    Salary
 4  | Mark Zuckerberg | Founder Facebook  | 1,300,000
 ```
 
+There are more [examples below](#examples).
+
 ## Convenience methods
 
 ### Columns
@@ -483,7 +485,7 @@ No Name            Position                  Salary
 .............................................................
 ```
 
-## Example
+## Examples
 
 With all the examples above demonstrating a specific option each, you may not have noticed how easy this package can make your life (that's what it's meant to do). So here's an example that shows typical usage. Assuming you have a `Person` class/record but you can't (or don't want to) 'pollute' it with `ColumnOrder`-attributes:
 
