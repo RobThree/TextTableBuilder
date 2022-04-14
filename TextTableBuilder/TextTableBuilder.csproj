@@ -17,8 +17,8 @@
 		<PackageTags>text;table;simple</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>1.1.1</Version>
-		<PackageReleaseNotes>Fix IndexOutofRange exception</PackageReleaseNotes>
+		<Version>1.1.2</Version>
+		<PackageReleaseNotes>Added a bunch of new table renderers</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>
