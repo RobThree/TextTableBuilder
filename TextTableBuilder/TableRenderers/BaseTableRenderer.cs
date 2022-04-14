@@ -6,10 +6,10 @@ public abstract class BaseTableRenderer : ITableRenderer
 {
     public const char DEFAULTPADDINGCHAR = ' ';
     public const int DEFAULTCELLPADDING = 1;
-    
+
     public abstract string Render(ReadOnlyCollection<RenderColumn> columns, IEnumerable<string[]> rows);
 
-    protected static string RenderRow(char columnSeparator, IEnumerable<string> values, char paddingChar, int cellPadding)
+    protected static string RenderRow(char columnSeparator, IEnumerable<string> values)
         => string.Join(columnSeparator.ToString(), values);
 
     protected static string RenderLine(char left, char mid, char right, char pad, ReadOnlyCollection<RenderColumn> widths, int cellPadding)

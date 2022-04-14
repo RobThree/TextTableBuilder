@@ -8,7 +8,7 @@ var table = new Table()
     .AddRow(3, "Larry Page", "Founder Google", 1100000m)
     .AddRow(4, "Mark Zuckerberg", "Founder Facebook", 1300000m);
 
-var renderers = new ITableRenderer[] { 
+var renderers = new ITableRenderer[] {
     new DefaultTableRenderer(),
     new MinimalTableRenderer(),
     new MSDOSTableRenderer(),
@@ -21,9 +21,10 @@ var renderers = new ITableRenderer[] {
 };
 
 var tablebuilder = new TableBuilder();
-tablebuilder.TypeHandlers.AddHandler<decimal>((v, f) => $"$ {v.ToString("N2")}");
+tablebuilder.TypeHandlers.AddHandler<decimal>((v, f) => $"$ {v:N2}");
 
-foreach (var r in renderers) {
+foreach (var r in renderers)
+{
     Console.Write($"{r.GetType().Name}:\n\n");
     Console.Write(tablebuilder.Build(table, r));
     Console.Write("\n\n");
