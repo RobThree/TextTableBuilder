@@ -20,8 +20,8 @@ var renderers = new ITableRenderer[] {
     new DotsTableRenderer()
 };
 
-var tablebuilder = new TableBuilder();
-tablebuilder.TypeHandlers.AddHandler<decimal>((v, f) => $"$ {v:N2}");
+var tablebuilder = new TableBuilder()
+    .AddTypeHandler<decimal>((v, f) => $"$ {v:N2}");
 
 foreach (var r in renderers)
 {

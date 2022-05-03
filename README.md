@@ -42,8 +42,8 @@ There are more [examples below](#examples).
 An easier, quicker way to add columns is to invoke `AddColumns()`. By passing an array of column names all columns can be specified in one call:
 
 ```c#
-var table = new Table();
-table.AddColumns(new[] { "No.", "Name", "Position", "^Salary^" })
+var table = new Table()
+    .AddColumns(new[] { "No.", "Name", "Position", "^Salary^" })
     .AddRow(1, "Bill Gates", "Founder Microsoft", 10000)
     // etc...
 ```
@@ -117,8 +117,8 @@ public class CurrencyTypeHandler : ITypeHandler
 So when we then specify our values as decimals (by adding the `m`-suffix)...
 
 ```c#
-var table = new Table();
-table.AddColumns(new[] { "No.", "Name", "Position", "^Salary^" })
+var table = new Table()
+    .AddColumns(new[] { "No.", "Name", "Position", "^Salary^" })
     .AddRow(1, "Bill Gates", "Founder Microsoft", 10000m)
     // etc ...
 ```
@@ -163,11 +163,16 @@ And still shorter:
 ```c#
 tablebuilder.TypeHandlers.AddHandler<decimal>((value, formatProvider) => string.Format("$ {0:N2}", value));
 ```
+And instead of the `TypeHandlers` property we can also use the `AddTypeHandler()` method:
+
+```c#
+tablebuilder.AddTypeHandler<decimal>((value, formatProvider) => string.Format("$ {0:N2}", value));
+```
 
 And for those about to point out this can be written even shorter:
 
 ```c#
-tablebuilder.TypeHandlers.AddHandler<decimal>((v, _) => $"$ {v:N2}");
+tablebuilder.AddTypeHandler<decimal>((v, _) => $"$ {v:N2}");
 ```
 
 A `TypeHandler` can also be passed to a `Column`'s constructor, in which case that `TypeHandler` is used for all values in that column.
@@ -200,8 +205,8 @@ var persons = new[]
 By default the TextTableBuilder outputs properties of objects in alfabetical order; for our example that just happens to work out:
 
 ```c#
-var table = new Table();
-table.AddColumns(new[] { "Name", "Position", "^Salary^" })
+var table = new Table()
+    .AddColumns(new[] { "Name", "Position", "^Salary^" })
     .AddRows(persons);
 
 var tablebuilder = new TableBuilder();
@@ -230,13 +235,18 @@ public class PersonHandler : IObjectHandler
 After that, building a table for this data is simple:
 
 ```c#
-var table = new Table();
-table.AddColumns(new[] { "Name", "Position", "^Salary^" })
+var table = new Table()
+    .AddColumns(new[] { "Name", "Position", "^Salary^" })
     .AddRows(persons);
 
 var tablebuilder = new TableBuilder();
+
 // Specify object handler to use for persons
 tablebuilder.ObjectHandlers.AddHandler<Person>(new PersonHandler());
+// Or, alternatively:
+tablebuilder.AddObjectHandler<Person>(new PersonHandler());
+
+
 Console.WriteLine(tablebuilder.Build(table));
 ```
 
@@ -272,7 +282,7 @@ tablebuilder.ObjectHandlers.AddHandler<Person>(new DelegatingObjectHandler<decim
 Still shorter:
 
 ```c#
-tablebuilder.ObjectHandlers.AddHandler<Person>((person, columnCount) => new object[] { person.Name, person.Position, person.Salary });
+tablebuilder.AddObjectHandler<Person>((person, columnCount) => new object[] { person.Name, person.Position, person.Salary });
 ```
 
 When no handler for a specific object can be found then the `DefaultObjectHandler` is used which simply takes all readable properties and returns those in alfabetical order unless...
@@ -315,8 +325,8 @@ var persons = new[]
     // etc ...
 };
 
- var table = new Table();
-table.AddColumns(new[] { "Position", "Name", "^Salary^" })
+ var table = new Table()
+    .AddColumns(new[] { "Position", "Name", "^Salary^" })
     .AddRows(persons);
 
 var tablebuilder = new TableBuilder();
@@ -339,12 +349,12 @@ Note the DateOfBirth column is missing; this is because the `DefaultObjectHandle
 However, if we print the table like this:
 
 ```c#
-var table = new Table();
-table.AddColumns(new[] { "Position", "Name", "^Salary^", "Birthdate", "Alma mater", "Spouse" })
+var table = new Table()
+    .AddColumns(new[] { "Position", "Name", "^Salary^", "Birthdate", "Alma mater", "Spouse" })
     .AddRows(persons);
 
 var tablebuilder = new TableBuilder();
-tablebuilder.TypeHandlers.AddHandler<DateTime>(new DelegatingTypeHandler<DateTime>((date, formatprovider) => $"{date:yyyy-MM-dd}"));
+tablebuilder.AddTypeHandler<DateTime>(new DelegatingTypeHandler<DateTime>((date, formatprovider) => $"{date:yyyy-MM-dd}"));
 Console.WriteLine(tablebuilder.Build(table));
 ```
 
@@ -494,11 +504,10 @@ var table = new Table()
     .AddColumns(new[] { "Name", "Position", "^Salary^" })
     .AddRows(DBContext.Persons.Where(p => p.Salary > 100));
 
-var tablebuilder = new TableBuilder();
-// Specify object handler to use for persons
-tablebuilder.ObjectHandlers.AddHandler<Person>(
-    (person, columnCount) => new object[] { person.Name, person.Position, person.Salary }
-);
+var tablebuilder = new TableBuilder()
+    .AddObjectHandler<Person>( // Specify object handler to use for persons
+        (person, columnCount) => new object[] { person.Name, person.Position, person.Salary }
+    );
 Console.WriteLine(tablebuilder.Build(table));
 ```
 

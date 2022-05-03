@@ -90,4 +90,48 @@ public class TableBuilder
             rows
         );
     }
+
+    #region Convenience methods
+    public TableBuilder AddObjectHandler(Type type, IObjectHandler objectHandler)
+    {
+        ObjectHandlers.AddHandler(type, objectHandler);
+        return this;
+    }
+
+    public TableBuilder AddObjectHandler<T>(IObjectHandler objectHandler)
+    {
+        ObjectHandlers.AddHandler<T>(objectHandler);
+        return this;
+    }
+
+    public TableBuilder AddObjectHandler<T>(Func<T, int, object?[]> func)
+    {
+        ObjectHandlers.AddHandler<T>(func);
+        return this;
+    }
+
+    public TableBuilder AddTypeHandler(Type type, ITypeHandler typeHandler)
+    {
+        TypeHandlers.AddHandler(type, typeHandler);
+        return this;
+    }
+
+    public TableBuilder AddTypeHandler<T>(ITypeHandler typeHandler)
+    {
+        TypeHandlers.AddHandler<T>(typeHandler);
+        return this;
+    }
+
+    public TableBuilder AddTypeHandler<T>(Func<T, IFormatProvider, string> func)
+    {
+        TypeHandlers.AddHandler<T>(func);
+        return this;
+    }
+
+    public TableBuilder SetTypeHandlerNullValueHandler<T>(INullValueHandler nullValueHandler)
+    {
+        TypeHandlers.NullValueHandler = nullValueHandler ?? NullValueHandler.Default;
+        return this;
+    }
+    #endregion
 }

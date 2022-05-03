@@ -17,7 +17,7 @@
 		<PackageTags>text;table;simple</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>1.1.3</Version>
+		<Version>1.2.0</Version>
 		<PackageReleaseNotes>Added a bunch of new table renderers</PackageReleaseNotes>
 	</PropertyGroup>
 
