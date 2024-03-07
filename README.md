@@ -53,9 +53,12 @@ For aligning columns, see [Aligning columns and values](#aligning-columns-and-va
 
 Rows can be added in three ways:
 
-1. `AddRow(Row row)`<br>Either pass a `ValueRow` or `ObjectRow`
-2. `AddRow(params object[] values)`<br>Pass all values (e.g. `.AddRow("foo", 123, "bar)`)
-3. `AddRow<T>(value)`<br>Pass an object (e.g `.AddRow<Customer>(paul)`) (see [Type handling](#type-handling))
+1. `AddRow(Row row)`\
+    Either pass a `ValueRow` or `ObjectRow`
+2. `AddRow(params object[] values)`\
+    Pass all values (e.g. `.AddRow("foo", 123, "bar)`)
+3. `AddRow<T>(value)`\
+    Pass an object (e.g `.AddRow<Customer>(paul)`) (see [Type handling](#type-handling))
 
 Method 2 adds a `ValueRow` to the table whereas method 3 adds an `ObjectRow` to the table. Method 1 is provided only for completeness' sake.
 
