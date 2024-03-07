@@ -5,11 +5,12 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AnalysisLevel>latest</AnalysisLevel>
 		<Authors>RobIII</Authors>
 		<Company>Devcorner.nl</Company>
 		<Description>Simple, opinionated, modern table builder</Description>
-		<Copyright>(C) 2022 Devcorner.nl</Copyright>
+		<Copyright>(C) 2022 - 2024 Devcorner.nl</Copyright>
 		<PackageProjectUrl>https://github.com/RobThree/TextTableBuilder</PackageProjectUrl>
 		<PackageIcon>logo.png</PackageIcon>
 		<RepositoryUrl>https://github.com/RobThree/TextTableBuilder</RepositoryUrl>
@@ -17,8 +18,6 @@
 		<PackageTags>text;table;simple</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>1.2.0</Version>
-		<PackageReleaseNotes>Added a bunch of new table renderers</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>

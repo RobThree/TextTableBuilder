@@ -1,9 +1,8 @@
-﻿# ![Logo](logo.png) TextTableBuilder
+﻿# ![logo](https://raw.githubusercontent.com/RobThree/TextTableBuilder/master/logo.png) TextTableBuilder
 
-[![Build status](https://ci.appveyor.com/api/projects/status/am77wpby61rbgqxh)](https://ci.appveyor.com/project/RobIII/texttablebuilder) <a href="https://www.nuget.org/packages/TextTableBuilder/"><img src="http://img.shields.io/nuget/v/TextTableBuilder.svg?style=flat-square" alt="NuGet version" height="18"></a>
+![Build Status](https://img.shields.io/github/actions/workflow/status/RobThree/IPNetworkHelper/test.yml?branch=main&style=flat-square) [![Nuget version](http://img.shields.io/nuget/v/TextTableBuilder.svg?style=flat-square)](https://www.nuget.org/packages/TextTableBuilder/)
 
 A simple, opinionated, modern table builder. Supports configuring how different datatypes will be formatted. Available as [Nuget package](https://www.nuget.org/packages/TextTableBuilder/)
-
 
 ## Quickstart
 
